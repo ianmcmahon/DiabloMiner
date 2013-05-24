@@ -18,39 +18,25 @@
 
 package com.diablominer.DiabloMiner;
 
-import java.net.Authenticator;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
-import java.net.Proxy;
-import java.net.Proxy.Type;
-import java.net.URL;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
-
 import com.diablominer.DiabloMiner.DeviceState.DeviceState;
 import com.diablominer.DiabloMiner.DeviceState.GPUHardwareType;
 import com.diablominer.DiabloMiner.NetworkState.JSONRPCNetworkState;
 import com.diablominer.DiabloMiner.NetworkState.NetworkState;
+import org.apache.commons.cli.*;
+import org.apache.log4j.Logger;
+
+import java.net.*;
+import java.net.Proxy.Type;
+import java.text.DateFormat;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class DiabloMiner {
 	public final static long TWO32 = 4294967295L;
 	public final static long TIME_OFFSET = 7500;
+
+    public Logger logger = Logger.getLogger(DiabloMiner.class);
 
 	NetworkState networkStateHead = null;
 	NetworkState networkStateTail = null;
@@ -125,7 +111,7 @@ public class DiabloMiner {
 				throw new ParseException("");
 			}
 		} catch(ParseException e) {
-			System.out.println(e.getLocalizedMessage() + "\n");
+			logger.error(e.getLocalizedMessage() + "\n");
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("DiabloMiner -u myuser -p mypassword [args]\n", "", options, "\nRemember to set rpcuser and rpcpassword in your ~/.bitcoin/bitcoin.conf " + "before starting bitcoind or bitcoin --daemon");
 			return;
@@ -392,9 +378,9 @@ public class DiabloMiner {
 					hashMeterFormatter.format("| fps: %.1f", basisAverage);
 				}
 
-				System.out.print(hashMeter);
+				logger.info(hashMeter);
 			} else {
-				System.out.print("\rWaiting...");
+				logger.info("\rWaiting...");
 			}
 
 			if(now() - TIME_OFFSET * 2 > previousAdjustedStartTime) {
@@ -404,7 +390,7 @@ public class DiabloMiner {
 			}
 
 			if(debugtimer && now() > startTime + 60 * 1000) {
-				System.out.print("\n");
+				logger.info("\n");
 				info("Debug timer is up, quitting...");
 				System.exit(0);
 			}
@@ -447,15 +433,13 @@ public class DiabloMiner {
 	}
 
 	public void info(String msg) {
-		System.out.println("\r" + CLEAR + "\r" + dateTime() + " " + msg);
+		logger.info("\r" + CLEAR + "\r" + dateTime() + " " + msg);
 		threads.get(0).interrupt();
 	}
 
 	public void debug(String msg) {
-		if(debug) {
-			System.out.println("\r" + CLEAR + "\r" + dateTime() + " DEBUG: " + msg);
-			threads.get(0).interrupt();
-		}
+        logger.debug("\r" + CLEAR + "\r" + dateTime() + " DEBUG: " + msg);
+        threads.get(0).interrupt();
 	}
 
 	public void error(String msg) {
