@@ -360,9 +360,9 @@ public class DiabloMiner {
 				hashMeter.setLength(0);
 
 				if(!debug) {
-					hashMeterFormatter.format("\nmhash: %.1f/%.1f | accept: %d | reject: %d | hw error: %d", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
+					hashMeterFormatter.format("mhash: %.1f/%.1f | accept: %d | reject: %d | hw error: %d", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
 				} else {
-					hashMeterFormatter.format("\nmh: %.1f/%.1f | a/r/hwe: %d/%d/%d | gh: ", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
+					hashMeterFormatter.format("mh: %.1f/%.1f | a/r/hwe: %d/%d/%d | gh: ", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
 
 					double basisAverage = 0.0;
 
@@ -380,7 +380,7 @@ public class DiabloMiner {
 
 				logger.info(hashMeter);
 			} else {
-				logger.info("\rWaiting...");
+				logger.info("Waiting...");
 			}
 
 			if(now() - TIME_OFFSET * 2 > previousAdjustedStartTime) {
