@@ -433,17 +433,17 @@ public class DiabloMiner {
 	}
 
 	public void info(String msg) {
-		logger.info("\r" + CLEAR + "\r" + dateTime() + " " + msg);
+		logger.info(msg);
 		threads.get(0).interrupt();
 	}
 
 	public void debug(String msg) {
-        logger.debug("\r" + CLEAR + "\r" + dateTime() + " DEBUG: " + msg);
+        logger.debug(msg);
         threads.get(0).interrupt();
 	}
 
 	public void error(String msg) {
-		System.err.println("\r" + CLEAR + "\r" + dateTime() + " ERROR: " + msg);
+		logger.error(msg);
 		threads.get(0).interrupt();
 	}
 
