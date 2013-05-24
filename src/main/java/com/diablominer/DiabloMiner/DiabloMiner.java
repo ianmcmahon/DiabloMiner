@@ -360,9 +360,9 @@ public class DiabloMiner {
 				hashMeter.setLength(0);
 
 				if(!debug) {
-					hashMeterFormatter.format("\rmhash: %.1f/%.1f | accept: %d | reject: %d | hw error: %d", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
+					hashMeterFormatter.format("\nmhash: %.1f/%.1f | accept: %d | reject: %d | hw error: %d", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
 				} else {
-					hashMeterFormatter.format("\rmh: %.1f/%.1f | a/r/hwe: %d/%d/%d | gh: ", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
+					hashMeterFormatter.format("\nmh: %.1f/%.1f | a/r/hwe: %d/%d/%d | gh: ", averageHashCount, hashLongCount, blocks.get(), rejects.get(), hwErrors.get());
 
 					double basisAverage = 0.0;
 
