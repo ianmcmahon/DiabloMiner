@@ -399,7 +399,7 @@ public class DiabloMiner {
 				if(now - startTime > TIME_OFFSET)
 					Thread.sleep(1000);
 				else
-					Thread.sleep(1);
+					Thread.sleep(100);
 			} catch(InterruptedException e) {
 			}
 		}
